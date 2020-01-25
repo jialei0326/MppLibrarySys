@@ -1,4 +1,4 @@
-package application.dataaccess;
+package application.pojo;
 
 import java.io.Serializable;
 

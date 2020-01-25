@@ -1,13 +1,18 @@
 package application.dataaccess;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import application.pojo.Address;
+import application.pojo.Auth;
 import application.pojo.Author;
 import application.pojo.Book;
 import application.pojo.LibraryMember;
+import application.pojo.User;
+import application.util.DataAccessUtil;
 
 
 
@@ -57,9 +62,9 @@ public class TestData {
 	@SuppressWarnings("serial")
 	List<User> allUsers = new ArrayList<User>() {
 		{
-			add(new User("101", "xyz", Auth.LIBRARIAN));
-			add(new User("102", "abc", Auth.ADMIN));
-			add(new User("103", "111", Auth.BOTH));
+			add(new User("lib", "123", Auth.LIBRARIAN));
+			add(new User("admin", "123", Auth.ADMIN));
+			add(new User("both", "123", Auth.BOTH));
 		}
 	};
 	
@@ -68,9 +73,15 @@ public class TestData {
 		td.bookData();
 		td.libraryMemberData();
 		td.userData();
-		DataAccess da = new DataAccessFacade();
-		System.out.println(da.readBooksMap());
-		System.out.println(da.readUserMap());
+		System.out.println(DataAccessUtil.readBooksMap());
+		System.out.println(DataAccessUtil.readUserMap());
+		
+		
+//		  LocalDateTime date = LocalDateTime.now();
+//		  String text = date.format(formatter);
+//		  System.out.println(text);
+//		  LocalDateTime parsedDate = LocalDateTime.parse(text, formatter);
+//		  System.out.println(parsedDate);
 	}
 	///create books
 	public void bookData() {
@@ -80,19 +91,26 @@ public class TestData {
 		allBooks.get(3).addCopy();
 		allBooks.get(2).addCopy();
 		allBooks.get(2).addCopy();
-		DataAccessFacade.loadBookMap(allBooks);
+		DataAccessUtil.loadBookMap(allBooks);
 	}
 	
 	public void userData() {
-		DataAccessFacade.loadUserMap(allUsers);
+		DataAccessUtil.loadUserMap(allUsers);
 	}
 	
+	 
+	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH mm ss");
+   LocalDateTime date = LocalDateTime.now();
+   String text = date.format(formatter);
+   LocalDateTime parsedDate = LocalDateTime.parse(text, formatter);
 	
 	
 	//create library members
 	
 	public void libraryMemberData() {
 		LibraryMember libraryMember = new LibraryMember("1001", "Andy", "Rogers", "641-223-2211", addresses.get(4));
+		
+		
 		members.add(libraryMember);
 		libraryMember = new LibraryMember("1002", "Drew", "Stevens", "702-998-2414", addresses.get(5));
 		members.add(libraryMember);
@@ -103,7 +121,7 @@ public class TestData {
 		libraryMember = new LibraryMember("1004", "Ricardo", "Montalbahn", "641-472-2871", addresses.get(7));
 		members.add(libraryMember);
 		
-		DataAccessFacade.loadMemberMap(members);
+		DataAccessUtil.loadMemberMap(members);
 		
 		
 	}

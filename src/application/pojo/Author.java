@@ -3,6 +3,7 @@ package application.pojo;
 import java.io.Serializable;
 
 final public class Author extends Person implements Serializable {
+	private static final long serialVersionUID = 7508481940058530471L;
 	private String bio;
 	public String getBio() {
 		return bio;
@@ -14,6 +15,11 @@ final public class Author extends Person implements Serializable {
 		this.bio = bio;
 	}
 
-	private static final long serialVersionUID = 7508481940058530471L;
+
+	@Override
+	public String toString() {
+		return super.getFirstName() +" "+ super.getLastName();
+	}
+	 
 
 }

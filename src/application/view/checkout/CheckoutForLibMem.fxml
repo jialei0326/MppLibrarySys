@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="722.0" prefWidth="814.0" style="-fx-background-radius: 15px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.checkout.CheckoutForLirMemController">
+   <children>
+      <Pane fx:id="treeRoot" prefHeight="722.0" prefWidth="787.0" style="-fx-background-radius: 15px;">
+         <children>
+      <SplitPane layoutX="14.0" layoutY="18.0" prefHeight="687.0" prefWidth="787.0" style="-fx-background-radius: 15px;">
+      <items>
+      <AnchorPane layoutX="14.0" layoutY="17.0" prefHeight="687.0" prefWidth="787.0" style="-fx-background-radius: 15px;">
+         <children>
+            <Label fx:id="headLabel" layoutX="160.0" layoutY="7.0" prefHeight="42.0" prefWidth="477.0" text="Checkout for a Library Member" textAlignment="CENTER" textFill="#282625" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <ListView fx:id="memberList" layoutX="102.0" layoutY="55.0" prefHeight="169.0" prefWidth="466.0" />
+            <Button fx:id="chooseMember" layoutX="572.0" layoutY="104.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseMember">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+            <ListView fx:id="bookList" layoutX="102.0" layoutY="318.0" prefHeight="169.0" prefWidth="466.0" />
+            <Label layoutX="24.0" layoutY="131.0" prefHeight="42.0" prefWidth="66.0" text="Members:">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+            <Label layoutX="24.0" layoutY="382.0" prefHeight="42.0" prefWidth="66.0" text="Books:">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+            <Button fx:id="chooseBook" layoutX="572.0" layoutY="376.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseBook">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+            <TextArea fx:id="checkoutRecordInfo" layoutX="24.0" layoutY="516.0" prefHeight="161.0" prefWidth="545.0" />
+            <Label layoutX="24.0" layoutY="486.0" prefHeight="27.0" prefWidth="168.0" text="Checkout Record Info :">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
+            <TextField fx:id="memberName" layoutX="102.0" layoutY="227.0" prefHeight="42.0" prefWidth="247.0" promptText="Member Info" />
+            <TextField fx:id="bookName" layoutX="102.0" layoutY="273.0" prefHeight="42.0" prefWidth="247.0" promptText="Book Info" />
+            <Button fx:id="checkout" layoutX="399.0" layoutY="252.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="133.0" text="Checkout">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+            <Button fx:id="checkoutRedord" layoutX="572.0" layoutY="569.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ShowRecord">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+         </children>
+      </AnchorPane>
+         </items>
+      </SplitPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

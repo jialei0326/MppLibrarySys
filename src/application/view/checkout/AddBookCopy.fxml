@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="722.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.checkout.AddBookCopyController">
+   <children>
+      <Pane fx:id="treeRoot" layoutX="-6.0" prefHeight="723.0" prefWidth="820.0">
+         <children>
+         <SplitPane layoutX="26.0" layoutY="10.0" prefHeight="703.0" prefWidth="780.0" style="-fx-background-radius: 15px;">
+      <items>
+      <AnchorPane layoutY="1.0" prefHeight="640.0" prefWidth="740.0" style="-fx-background-radius: 15px;">
+         <children>
+            <Label fx:id="headLabel" layoutX="279.0" layoutY="23.0" prefHeight="42.0" prefWidth="274.0" text="Add BookCopy" textFill="#282625">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <ListView fx:id="bookList" layoutX="89.0" layoutY="72.0" prefHeight="264.0" prefWidth="655.0" />
+            <Label layoutX="38.0" layoutY="153.0" text="Books">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+            <Button fx:id="addBookCopy" layoutX="131.0" layoutY="346.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="258.0" text="AddBookCopy">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Button>
+            <TextArea fx:id="bookInfo" layoutX="88.0" layoutY="407.0" prefHeight="275.0" prefWidth="655.0" />
+            <Label layoutX="18.0" layoutY="563.0" prefHeight="19.0" prefWidth="67.0" text="Book Info:">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+            <Button fx:id="checkBookInfo" layoutX="424.0" layoutY="346.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="258.0" text="ShowBookInfo">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Button>
+         </children>
+      </AnchorPane>
+         </items>
+      </SplitPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
