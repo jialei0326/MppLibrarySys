@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import application.pojo.Address;
 import application.pojo.Author;
+import application.util.LibraryUtil;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -103,6 +106,10 @@ public class AddAuthorController implements Initializable{
 		headLabel.setGraphic(new ImageView(new Image("/application/icon/author.png")));
 		save.setGraphic(new ImageView(new Image("/application/icon/add.png")));
 		cancel.setGraphic(new ImageView(new Image("/application/icon/clear.png")));
+		
+		// force the field to be numeric only
+		LibraryUtil.numberTextfield(phoneNum);
+		LibraryUtil.numberTextfield(zip);
 		
 		DropShadow dropshadow = new DropShadow();
         dropshadow.setRadius(10);

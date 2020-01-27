@@ -3,8 +3,11 @@ package application.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 
 public class LibraryUtil {
 	
@@ -70,5 +73,18 @@ public class LibraryUtil {
 		alert.setHeaderText(null);
 		alert.setContentText("Checkout Book Successfully!");
 		alert.showAndWait();
+	}
+	
+	
+	public static void numberTextfield(TextField field) {
+		field.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		        	field.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 	}
 }

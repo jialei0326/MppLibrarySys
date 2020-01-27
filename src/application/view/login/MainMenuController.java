@@ -17,6 +17,7 @@ import application.pojo.User;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
 import application.util.StageManageUtil;
+import application.view.checkout.BookInfoDetailController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,6 +127,8 @@ public class MainMenuController implements Initializable{
 	@FXML
 	private Label hintmember;
 	@FXML
+	private Label hintBook;
+	@FXML
 	private Separator sepa1;
 	
 	public static Auth currentAuth = null;
@@ -169,6 +172,7 @@ public class MainMenuController implements Initializable{
 			avaliableColor.setVisible(true);
 			sepa1.setVisible(true);
 			hintmember.setVisible(true);
+			hintBook.setVisible(true);
 			if (currentAuth == Auth.LIBRARIAN) {
 				// disable ADMIN options
 				hide();
@@ -496,6 +500,39 @@ public class MainMenuController implements Initializable{
 	            }
 	        }
 	    });
+	    
+	    //bookList item double click action
+	    bookList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	    	Book bookdou =null;
+	    	@Override
+	    	public void handle(MouseEvent click) {
+	    		if (click.getClickCount() == 2) {
+	    			ObservableList<Book> selectedIndices = bookList.getSelectionModel().getSelectedItems();
+	    			for(Book o : selectedIndices){
+	    				bookdou =o;
+	    			}
+	    			
+	    			FXMLLoader fxmlLoader = new FXMLLoader();
+	    			fxmlLoader.setLocation(getClass().getResource("/application/view/checkout/BookInfoDetail.fxml"));
+	    			Parent root = null;
+	    			try {
+	    				root = fxmlLoader.load();
+	    			} catch (IOException e) {
+	    				e.printStackTrace();
+	    			}
+	    			Scene scene = new Scene(root);
+	    			BookInfoDetailController control = fxmlLoader.getController();
+	    			control.setBook(bookdou);
+	    			
+	    			Stage stage = new Stage();
+	    			stage.setTitle("BookInfo Detail");
+	    			//StageManager
+	    			saveToStageManage(stage);
+	    			stage.setScene(scene);
+	    			stage.show();  
+	    		}
+	    	}
+	    });
 
 	    logout.setOnAction(event -> {
 	    	login(event);
@@ -510,6 +547,7 @@ public class MainMenuController implements Initializable{
 			sepa1.setVisible(false);
 			logout.setVisible(false);
 			hintmember.setVisible(false);
+			hintBook.setVisible(false);
 			headPic.setText("User");
 	    });
 		bk.setOnAction(event -> {

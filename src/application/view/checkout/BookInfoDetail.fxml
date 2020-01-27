@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="722.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.checkout.BookInfoDetailController">
+   <children>
+      <Pane fx:id="treeRoot" layoutX="-6.0" prefHeight="723.0" prefWidth="820.0">
+         <children>
+         <SplitPane layoutX="26.0" layoutY="10.0" prefHeight="703.0" prefWidth="780.0" style="-fx-background-radius: 15px;">
+      <items>
+      <AnchorPane layoutY="1.0" prefHeight="640.0" prefWidth="740.0" style="-fx-background-radius: 15px;">
+         <children>
+            <Label fx:id="headLabel" layoutX="256.0" layoutY="25.0" prefHeight="42.0" prefWidth="287.0" text="BookInfo Detail" textFill="#282625">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Button fx:id="close" layoutX="260.0" layoutY="606.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="258.0" text="Close">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Button>
+            <TextArea fx:id="bookInfo" layoutX="81.0" layoutY="94.0" prefHeight="498.0" prefWidth="655.0" />
+            <Label layoutX="14.0" layoutY="310.0" prefHeight="19.0" prefWidth="67.0" text="Book Info:">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Label>
+         </children>
+      </AnchorPane>
+         </items>
+      </SplitPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

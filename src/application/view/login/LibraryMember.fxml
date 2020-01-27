@@ -60,13 +60,13 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="fn" layoutX="220.0" layoutY="75.0" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="ln" layoutX="220.0" layoutY="114.0" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="st" layoutX="220.0" layoutY="157.0" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="ct" layoutX="220.0" layoutY="192.0" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="ste" layoutX="220.0" layoutY="230.0" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="zp" layoutX="220.0" layoutY="273.0" onKeyTyped="#zipTest" prefHeight="27.0" prefWidth="225.0" />
-      <TextField fx:id="ph" layoutX="220.0" layoutY="310.0" onKeyTyped="#phoneTest" prefHeight="27.0" prefWidth="225.0" />
+      <TextField fx:id="fn" layoutX="220.0" layoutY="75.0" prefHeight="27.0" prefWidth="225.0" promptText="First Name" />
+      <TextField fx:id="ln" layoutX="220.0" layoutY="114.0" prefHeight="27.0" prefWidth="225.0" promptText="Last Name" />
+      <TextField fx:id="st" layoutX="220.0" layoutY="157.0" prefHeight="27.0" prefWidth="225.0" promptText="Street" />
+      <TextField fx:id="ct" layoutX="220.0" layoutY="192.0" prefHeight="27.0" prefWidth="225.0"  promptText="City"/>
+      <TextField fx:id="ste" layoutX="220.0" layoutY="230.0" prefHeight="27.0" prefWidth="225.0" promptText="State"/>
+      <TextField fx:id="zp" layoutX="220.0" layoutY="273.0" onKeyTyped="#zipTest" prefHeight="27.0" prefWidth="225.0" promptText="Zip(number only)"/>
+      <TextField fx:id="ph" layoutX="220.0" layoutY="310.0" onKeyTyped="#phoneTest" prefHeight="27.0" prefWidth="225.0" promptText="Phone Number(number only)" />
       <Button fx:id="saveBtn" layoutX="82.0" layoutY="372.0" mnemonicParsing="false" onAction="#addMember" prefHeight="59.0" prefWidth="320.0" text="Add">
          <font>
             <Font size="20.0" />

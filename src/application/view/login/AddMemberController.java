@@ -13,6 +13,7 @@ import application.pojo.Address;
 import application.pojo.FxController;
 import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
+import application.util.LibraryUtil;
 import application.util.StageManageUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -158,6 +159,12 @@ public class AddMemberController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		headLabel.setGraphic(new ImageView(new Image("/application/icon/add_member.png")));
 		saveBtn.setGraphic(new ImageView(new Image("/application/icon/add.png")));
+		
+		// force the field to be numeric only
+		LibraryUtil.numberTextfield(zp);
+		LibraryUtil.numberTextfield(ph);
+		
+		
 		DropShadow dropshadow = new DropShadow();
         dropshadow.setRadius(10);
         dropshadow.setOffsetX(0);
