@@ -21,39 +21,55 @@
                   <Font size="34.0" />
                </font>
             </Label>
-            <ListView fx:id="memberList" layoutX="102.0" layoutY="55.0" prefHeight="169.0" prefWidth="466.0" />
-            <Button fx:id="chooseMember" layoutX="572.0" layoutY="104.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseMember">
+            <ListView fx:id="memberList" layoutX="102.0" layoutY="55.0" prefHeight="132.0" prefWidth="466.0" />
+            <Button fx:id="chooseMember" layoutX="572.0" layoutY="94.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseMember">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-            <ListView fx:id="bookList" layoutX="102.0" layoutY="318.0" prefHeight="169.0" prefWidth="466.0" />
+            <ListView fx:id="bookList" layoutX="102.0" layoutY="235.0" prefHeight="169.0" prefWidth="466.0" />
             <Label layoutX="24.0" layoutY="131.0" prefHeight="42.0" prefWidth="66.0" text="Members:">
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-            <Label layoutX="24.0" layoutY="382.0" prefHeight="42.0" prefWidth="66.0" text="Books:">
+            <Label layoutX="24.0" layoutY="286.0" prefHeight="42.0" prefWidth="66.0" text="Books:">
                            <font>
                               <Font size="15.0" />
                            </font></Label>
-            <Button fx:id="chooseBook" layoutX="572.0" layoutY="376.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseBook">
+            <Button fx:id="chooseBook" layoutX="572.0" layoutY="280.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ChooseBook">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-            <TextArea fx:id="checkoutRecordInfo" layoutX="24.0" layoutY="516.0" prefHeight="161.0" prefWidth="545.0" />
-            <Label layoutX="24.0" layoutY="486.0" prefHeight="27.0" prefWidth="168.0" text="Checkout Record Info :">
+            <TextArea fx:id="checkoutRecordInfo" layoutX="22.0" layoutY="500.0" prefHeight="161.0" prefWidth="545.0" />
+            <Label layoutX="24.0" layoutY="473.0" prefHeight="27.0" prefWidth="168.0" text="Checkout Record Info :">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font></Label>
-            <TextField fx:id="memberName" layoutX="102.0" layoutY="227.0" prefHeight="42.0" prefWidth="247.0" promptText="Member Info" />
-            <TextField fx:id="bookName" layoutX="102.0" layoutY="273.0" prefHeight="42.0" prefWidth="247.0" promptText="Book Info" />
-            <Button fx:id="checkout" layoutX="399.0" layoutY="252.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="133.0" text="Checkout">
+            <TextField fx:id="memberName" layoutX="27.0" layoutY="417.0" prefHeight="42.0" prefWidth="266.0" promptText="Member Info" />
+            <TextField fx:id="bookName" layoutX="302.0" layoutY="417.0" prefHeight="42.0" prefWidth="266.0" promptText="Book Info" />
+            <Button fx:id="checkout" layoutX="611.0" layoutY="417.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="133.0" text="Checkout">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-            <Button fx:id="checkoutRedord" layoutX="572.0" layoutY="569.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ShowRecord">
+            <Button fx:id="checkoutRedord" layoutX="572.0" layoutY="553.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="201.0" text="ShowRecord">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
+                        <Label alignment="TOP_LEFT" layoutX="589.0" layoutY="152.0" prefHeight="20.0" prefWidth="168.0" text="(Step 1: Choose A Member)" textFill="#eb0909" wrapText="true" />
+                        <Label alignment="TOP_LEFT" layoutX="600.0" layoutY="335.0" prefHeight="42.0" prefWidth="145.0" text="(Step 2: Choose A Book for Member)" textFill="#eb0909" wrapText="true" />
+                        <Label alignment="TOP_LEFT" layoutX="581.0" layoutY="459.0" prefHeight="55.0" prefWidth="201.0" text="(Step 3: After get member and book information, and then checkout  the book for this member)" textFill="#eb0909" wrapText="true" />
+                        <Label alignment="TOP_LEFT" layoutX="572.0" layoutY="608.0" prefHeight="55.0" prefWidth="210.0" text="(Hint: Choose a member, and Show information about a choosed member Checkout Record)" textFill="#eb0909" wrapText="true" />
+                        <Label layoutX="380.0" layoutY="214.0" text="Avaliable">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="533.0" layoutY="212.0" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: #ff6868;" textFill="#ff6868" />
+                        <Label layoutX="475.0" layoutY="214.0" text="Unavaliable">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="424.0" layoutY="212.0" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: #a6ff8e;" />
          </children>
       </AnchorPane>
          </items>

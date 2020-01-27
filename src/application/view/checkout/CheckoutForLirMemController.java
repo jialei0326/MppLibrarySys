@@ -11,15 +11,19 @@ import java.util.ResourceBundle;
 import application.pojo.Book;
 import application.pojo.BookCopy;
 import application.pojo.CheckRecord;
+import application.pojo.FxController;
 import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
+import application.util.StageManageUtil;
+import application.view.login.MainMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -28,6 +32,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 public class CheckoutForLirMemController implements Initializable {
 	
@@ -88,6 +93,29 @@ public class CheckoutForLirMemController implements Initializable {
 	    HashMap<String, Book> bookmap = DataAccessUtil.readBooksMap();
 	    Collection<Book> bookCollection = bookmap.values();
 	    bookList.getItems().addAll(bookCollection);
+	    
+	    bookList.setCellFactory(new Callback<ListView<Book>, ListCell<Book>>() {
+            @Override
+            public ListCell<Book> call(ListView<Book> param) {
+                return new ListCell<Book>() {
+                	@Override
+        	    	protected void updateItem(Book item, boolean empty) {
+        	    		super.updateItem(item, empty);
+        	    		if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item.toString());
+                            if(!item.isAvailable()) {
+                            	setStyle("-fx-background-color: #ff6868;");
+                            }else {
+                            	setStyle("-fx-background-color: #a6ff8e;");
+                            }
+                        }
+        	    	}
+                };
+            }
+
+        });
 	    
 	    
 	    //chooseMember click action
@@ -160,6 +188,7 @@ public class CheckoutForLirMemController implements Initializable {
 			LocalDateTime now = LocalDateTime.now();
 			BookCopy bookcopy = book.getNextAvailableCopy();
 			CheckRecord newCheckRecord = new CheckRecord(LibraryUtil.formatLocalDate(now), bookcopy);
+			newCheckRecord.setLibraryMember(member);
 			
 			//set next bookcopy is unavailable
 			//write into database
@@ -169,6 +198,7 @@ public class CheckoutForLirMemController implements Initializable {
 			for(int i =0;i<copys.length;i++) {
 				if(copys[i].getCopyNum() == bookcopy.getCopyNum()) {
 					copys[i].changeAvailability();
+					copys[i].setCheckRecord(newCheckRecord);
 					break;
 				}
 			}
@@ -208,6 +238,14 @@ public class CheckoutForLirMemController implements Initializable {
 			memberName.clear();
 			bookName.clear();
 			
+			//refresh main window booklist
+			HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
+			List<Book> listr = new ArrayList<Book>(bookmapr.values());
+			ObservableList<Book> observableListr = FXCollections.observableList(listr);
+			MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
+			s.refreshBookList(observableListr);
+			
+			
 		});
 		
 		
@@ -242,7 +280,8 @@ public class CheckoutForLirMemController implements Initializable {
 	        	for(int i =0;i<listr.size();i++) {
 	        		textarea += "Record "+(i+1)+":\n{\n";
 	        		textarea += "\tCheckout Book[ ISBN:" + listr.get(i).getBookcopy().getBook().getIsbn()+", Title:"+listr.get(i).getBookcopy().getBook().getTitle()+" ]\n"+
-	    					"\tCheckouDate[ "+listr.get(i).getCheckoutDate()+" ], DueDate[ "+ listr.get(i).getDueDate()+" ]\n}\n";
+	        				"\tBookCopy[ copy number:"+listr.get(i).getBookcopy().getCopyNum()+" ]\n"+
+	        				"\tCheckouDate[ "+listr.get(i).getCheckoutDate()+" ], DueDate[ "+ listr.get(i).getDueDate()+" ]\n}\n";
 	        	}
 	        }else {
 	        	LibraryUtil.alertNoCheckoutRecord();

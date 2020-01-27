@@ -1,6 +1,7 @@
 package application.view.checkout;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,14 +10,18 @@ import java.util.ResourceBundle;
 
 import application.pojo.Book;
 import application.pojo.BookCopy;
+import application.pojo.FxController;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
+import application.util.StageManageUtil;
+import application.view.login.MainMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
@@ -24,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 public class AddBookCopyController implements Initializable {
 	
@@ -59,6 +65,28 @@ public class AddBookCopyController implements Initializable {
 	    HashMap<String, Book> bookmap = DataAccessUtil.readBooksMap();
 	    Collection<Book> bookCollection = bookmap.values();
 	    bookList.getItems().addAll(bookCollection);
+	    bookList.setCellFactory(new Callback<ListView<Book>, ListCell<Book>>() {
+            @Override
+            public ListCell<Book> call(ListView<Book> param) {
+                return new ListCell<Book>() {
+                	@Override
+        	    	protected void updateItem(Book item, boolean empty) {
+        	    		super.updateItem(item, empty);
+        	    		if (item == null || empty) {
+                            setText(null);
+                        } else {
+                            setText(item.toString());
+                            if(!item.isAvailable()) {
+                            	setStyle("-fx-background-color: #ff6868;");
+                            }else {
+                            	setStyle("-fx-background-color: #a6ff8e;");
+                            }
+                        }
+        	    	}
+                };
+            }
+
+        });
 	    
 		//addBookCopy click action
 	    addBookCopy.setOnAction(event -> {
@@ -96,15 +124,31 @@ public class AddBookCopyController implements Initializable {
 			
 			String text = "Book[ ISBN: "+book.getIsbn()+", Title: "+book.getTitle()+" ] Add BookCopy Sucessfully!\n";
 			//add bookInfo
+//			for(BookCopy bc:book.getCopies()) {
+//  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
+//  	        }
 			for(BookCopy bc:book.getCopies()) {
-  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
-  	        }
+	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
+	        			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
+	        					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
+	        			"\n\t\t\t\tCheckOutMember[ MemberId: "+bc.getCheckRecord().getLibraryMember().getMemberId()+", MemberName: "+bc.getCheckRecord().getLibraryMember().getFirstName()+
+	        			" "+bc.getCheckRecord().getLibraryMember().getLastName()+" ]");
+	        }
   	       
 			text += "Book Info\n{\n\tISBN[ " + book.getIsbn()+" ],\n\tTitle[ "+book.getTitle()+" ],\n\tAuthors"+book.getAuthors().toString()+
   	        		",\n\tmaxCheckoutLength[ "+ book.getMaxCheckoutLength()+" ],\n\t"+ (book.isAvailable() == true?"Avalicble":"Unavalicble")+",\n"+
   	        		"\tBookCopy Info\n\t[ "+bookCopyInfo+"\n\t]\n}";
 			
         	bookInfo.setText(text);
+        	
+        	//refresh main window booklist
+			HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
+			List<Book> listr = new ArrayList<Book>(bookmapr.values());
+			ObservableList<Book> observableListr = FXCollections.observableList(listr);
+			MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
+			s.refreshBookList(observableListr);
+        	
+        	
 		});
 	    
 	    //checkBook click action
@@ -129,9 +173,16 @@ public class AddBookCopyController implements Initializable {
   	        		book = o;
   	        	}
   	        }
+//  	        for(BookCopy bc:book.getCopies()) {
+//  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
+//  	        }
   	        for(BookCopy bc:book.getCopies()) {
-  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
-  	        }
+	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
+	        			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
+	        					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
+	        			"\n\t\t\t\tCheckOutMember[ MemberId: "+bc.getCheckRecord().getLibraryMember().getMemberId()+", MemberName: "+bc.getCheckRecord().getLibraryMember().getFirstName()+
+	        			" "+bc.getCheckRecord().getLibraryMember().getLastName()+" ]");
+	        }
   	       
   	        textarea += "Book Info\n{\n\tISBN[ " + book.getIsbn()+" ],\n\tTitle[ "+book.getTitle()+" ],\n\tAuthors"+book.getAuthors().toString()+
   	        		",\n\tmaxCheckoutLength[ "+ book.getMaxCheckoutLength()+" ],\n\t"+ (book.isAvailable() == true?"Avalicble":"Unavalicble")+",\n"+

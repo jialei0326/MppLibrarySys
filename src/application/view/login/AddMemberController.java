@@ -106,7 +106,6 @@ public class AddMemberController implements Initializable{
 				HashMap<String, LibraryMember> membermap = DataAccessUtil.readMemberMap();
 				List<LibraryMember> result2 = new ArrayList<LibraryMember>(membermap.values());
 				ObservableList<LibraryMember> observableList = FXCollections.observableList(result2);
-				
 				MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
 				s.refreshMemberList(observableList);
 		        

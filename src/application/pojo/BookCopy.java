@@ -10,7 +10,9 @@ final public class BookCopy implements Serializable {
 	private static final long serialVersionUID = -63976228084869815L;
 	private Book book;
 	private int copyNum;
+	private CheckRecord checkRecord;
 	private boolean isAvailable;
+	
 	BookCopy(Book book, int copyNum, boolean isAvailable) {
 		this.book = book;
 		this.copyNum = copyNum;
@@ -22,6 +24,13 @@ final public class BookCopy implements Serializable {
 		this.copyNum = copyNum;
 	}
 	
+	public CheckRecord getCheckRecord() {
+		return checkRecord;
+	}
+
+	public void setCheckRecord(CheckRecord checkRecord) {
+		this.checkRecord = checkRecord;
+	}
 	
 	public boolean isAvailable() {
 		return isAvailable;

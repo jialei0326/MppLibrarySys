@@ -9,6 +9,7 @@ public class CheckRecord  implements Serializable {
 	private LocalDateTime checkoutDate;
 	private LocalDateTime dueDate;
 	private BookCopy bookcopy;
+	private LibraryMember libraryMember;
 	
 	public CheckRecord(LocalDateTime checkoutDate, BookCopy bookcopy) {
 		this.checkoutDate = checkoutDate;
@@ -31,6 +32,12 @@ public class CheckRecord  implements Serializable {
 	}
 	public void setBookcopy(BookCopy bookcopy) {
 		this.bookcopy = bookcopy;
+	}
+	public LibraryMember getLibraryMember() {
+		return libraryMember;
+	}
+	public void setLibraryMember(LibraryMember libraryMember) {
+		this.libraryMember = libraryMember;
 	}
 	@Override
 	public String toString() {
