@@ -2,10 +2,13 @@ package application.view.checkout;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import application.pojo.Book;
 import application.pojo.BookCopy;
+import application.pojo.LibraryMember;
+import application.util.DataAccessUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -36,11 +39,18 @@ public class BookInfoDetailController implements Initializable {
 		// clear Textarea
 		bookInfo.clear();
         for(BookCopy bc:book.getCopies()) {
+        	LibraryMember libmem =null;
+        	if(bc.getCheckRecord() != null) {
+        		String libraryMemberId = bc.getCheckRecord().getLibraryMember().getMemberId();
+        		HashMap<String, LibraryMember> map = DataAccessUtil.readMemberMap();
+        		libmem = map.get(libraryMemberId);
+        	}
+        	
         	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
         			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
         					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
-        			"\n\t\t\t\tCheckOutMember[ MemberId: "+bc.getCheckRecord().getLibraryMember().getMemberId()+", MemberName: "+bc.getCheckRecord().getLibraryMember().getFirstName()+
-        			" "+bc.getCheckRecord().getLibraryMember().getLastName()+" ]");
+        			"\n\t\t\t\tCheckOutMember[ MemberId: "+libmem.getMemberId()+", MemberName: "+libmem.getFirstName()+
+        			" "+libmem.getLastName()+" ]");
         }
        
         textarea += "Book Info\n{\n\tISBN[ " + book.getIsbn()+" ],\n\tTitle[ "+book.getTitle()+" ],\n\tAuthors"+book.getAuthors().toString()+

@@ -2,21 +2,13 @@ package application.view.login;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.pojo.Address;
-import application.pojo.FxController;
 import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
-import application.util.StageManageUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,8 +70,7 @@ public class AddMemberController implements Initializable{
 		}
 		else {
 			String idM=fn.getText().substring(0, 2)+ln.getText().substring(0, 2)+ph.getText().substring(5,9);
-			LocalDateTime l = LocalDateTime.now();
-			
+			//LocalDateTime l = LocalDateTime.now();
 			//id.setText(idM);
 			try {
 				Address newAddress = new Address(st.getText(), ct.getText(), ste.getText(), zp.getText());
@@ -87,12 +78,17 @@ public class AddMemberController implements Initializable{
 				if(saveBtn.getText().equals("Edit")) {
 					newMember = new LibraryMember(id.getText(), fn.getText(), ln.getText(), ph.getText(), newAddress);
 					DataAccessUtil.updateMember(newMember);
+					
+					//refresh main window booklist
+					LibraryUtil.refreshMainWinBookList();
+					
 					alert.setContentText("Member's editting Successfully...");
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == ButtonType.OK){
 						Stage stage = (Stage)saveBtn.getScene().getWindow();
 						stage.close();
 					}
+					
 				}else {
 					newMember = new LibraryMember(idM, fn.getText(), ln.getText(), ph.getText(), newAddress);
 					DataAccessUtil.saveNewMember(newMember);
@@ -103,12 +99,8 @@ public class AddMemberController implements Initializable{
 						stage.close();
 					}
 				}
-				//refresh memberlist
-				HashMap<String, LibraryMember> membermap = DataAccessUtil.readMemberMap();
-				List<LibraryMember> result2 = new ArrayList<LibraryMember>(membermap.values());
-				ObservableList<LibraryMember> observableList = FXCollections.observableList(result2);
-				MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
-				s.refreshMemberList(observableList);
+				//refresh main window memberlist
+				LibraryUtil.refreshMainWinMemberList();
 		        
 			} catch (Exception ex) {
 				ex.printStackTrace();

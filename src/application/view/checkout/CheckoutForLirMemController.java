@@ -11,12 +11,9 @@ import java.util.ResourceBundle;
 import application.pojo.Book;
 import application.pojo.BookCopy;
 import application.pojo.CheckRecord;
-import application.pojo.FxController;
 import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
-import application.util.StageManageUtil;
-import application.view.login.MainMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -239,12 +236,7 @@ public class CheckoutForLirMemController implements Initializable {
 			bookName.clear();
 			
 			//refresh main window booklist
-			HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
-			List<Book> listr = new ArrayList<Book>(bookmapr.values());
-			ObservableList<Book> observableListr = FXCollections.observableList(listr);
-			MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
-			s.refreshBookList(observableListr);
-			
+			LibraryUtil.refreshMainWinBookList();
 			
 		});
 		

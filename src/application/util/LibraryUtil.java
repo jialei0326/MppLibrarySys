@@ -2,9 +2,18 @@ package application.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import application.pojo.Book;
+import application.pojo.FxController;
+import application.pojo.LibraryMember;
+import application.view.login.MainMenuController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -86,5 +95,20 @@ public class LibraryUtil {
 		        }
 		    }
 		});
+	}
+	
+	public static void refreshMainWinBookList() {
+		HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
+		List<Book> listr = new ArrayList<Book>(bookmapr.values());
+		ObservableList<Book> observableListr = FXCollections.observableList(listr);
+		MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
+		s.refreshBookList(observableListr);
+	}
+	public static void refreshMainWinMemberList() {
+		HashMap<String, LibraryMember> membermap = DataAccessUtil.readMemberMap();
+		List<LibraryMember> result2 = new ArrayList<LibraryMember>(membermap.values());
+		ObservableList<LibraryMember> observableList = FXCollections.observableList(result2);
+		MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
+		s.refreshMemberList(observableList);
 	}
 }

@@ -10,11 +10,9 @@ import java.util.ResourceBundle;
 
 import application.pojo.Book;
 import application.pojo.BookCopy;
-import application.pojo.FxController;
+import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
 import application.util.LibraryUtil;
-import application.util.StageManageUtil;
-import application.view.login.MainMenuController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -124,15 +122,19 @@ public class AddBookCopyController implements Initializable {
 			
 			String text = "Book[ ISBN: "+book.getIsbn()+", Title: "+book.getTitle()+" ] Add BookCopy Sucessfully!\n";
 			//add bookInfo
-//			for(BookCopy bc:book.getCopies()) {
-//  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
-//  	        }
 			for(BookCopy bc:book.getCopies()) {
+	        	LibraryMember libmem =null;
+	        	if(bc.getCheckRecord() != null) {
+	        		String libraryMemberId = bc.getCheckRecord().getLibraryMember().getMemberId();
+	        		HashMap<String, LibraryMember> map = DataAccessUtil.readMemberMap();
+	        		libmem = map.get(libraryMemberId);
+	        	}
+	        	
 	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
 	        			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
 	        					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
-	        			"\n\t\t\t\tCheckOutMember[ MemberId: "+bc.getCheckRecord().getLibraryMember().getMemberId()+", MemberName: "+bc.getCheckRecord().getLibraryMember().getFirstName()+
-	        			" "+bc.getCheckRecord().getLibraryMember().getLastName()+" ]");
+	        			"\n\t\t\t\tCheckOutMember[ MemberId: "+libmem.getMemberId()+", MemberName: "+libmem.getFirstName()+
+	        			" "+libmem.getLastName()+" ]");
 	        }
   	       
 			text += "Book Info\n{\n\tISBN[ " + book.getIsbn()+" ],\n\tTitle[ "+book.getTitle()+" ],\n\tAuthors"+book.getAuthors().toString()+
@@ -142,12 +144,7 @@ public class AddBookCopyController implements Initializable {
         	bookInfo.setText(text);
         	
         	//refresh main window booklist
-			HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
-			List<Book> listr = new ArrayList<Book>(bookmapr.values());
-			ObservableList<Book> observableListr = FXCollections.observableList(listr);
-			MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
-			s.refreshBookList(observableListr);
-        	
+			LibraryUtil.refreshMainWinBookList();
         	
 		});
 	    
@@ -173,16 +170,21 @@ public class AddBookCopyController implements Initializable {
   	        		book = o;
   	        	}
   	        }
-//  	        for(BookCopy bc:book.getCopies()) {
-//  	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; ");
-//  	        }
+  	        
   	        for(BookCopy bc:book.getCopies()) {
-	        	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
-	        			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
-	        					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
-	        			"\n\t\t\t\tCheckOutMember[ MemberId: "+bc.getCheckRecord().getLibraryMember().getMemberId()+", MemberName: "+bc.getCheckRecord().getLibraryMember().getFirstName()+
-	        			" "+bc.getCheckRecord().getLibraryMember().getLastName()+" ]");
-	        }
+	          	LibraryMember libmem =null;
+	          	if(bc.getCheckRecord() != null) {
+	          		String libraryMemberId = bc.getCheckRecord().getLibraryMember().getMemberId();
+	          		HashMap<String, LibraryMember> map = DataAccessUtil.readMemberMap();
+	          		libmem = map.get(libraryMemberId);
+	          	}
+	          	
+	          	bookCopyInfo+="\n\t\tBookCopy number:"+bc.getCopyNum()+"--"+(bc.isAvailable() == true?"Avalicble; ":"Unavalicble; \n\t\t\t\t")+
+	          			(bc.getCheckRecord() == null ? "No Checkout Record!": "Checkout Record[ CheckoutDate: "+bc.getCheckRecord().getCheckoutDate()+
+	          					", DueDate: "+bc.getCheckRecord().getDueDate()+", IsOverDue: "+(bc.getCheckRecord().getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+" ]"+
+	          			"\n\t\t\t\tCheckOutMember[ MemberId: "+libmem.getMemberId()+", MemberName: "+libmem.getFirstName()+
+	          			" "+libmem.getLastName()+" ]");
+            }
   	       
   	        textarea += "Book Info\n{\n\tISBN[ " + book.getIsbn()+" ],\n\tTitle[ "+book.getTitle()+" ],\n\tAuthors"+book.getAuthors().toString()+
   	        		",\n\tmaxCheckoutLength[ "+ book.getMaxCheckoutLength()+" ],\n\t"+ (book.isAvailable() == true?"Avalicble":"Unavalicble")+",\n"+

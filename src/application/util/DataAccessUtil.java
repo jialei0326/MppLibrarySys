@@ -22,7 +22,6 @@ public class DataAccessUtil {
 	enum StorageType {
 		BOOKS, MEMBERS, USERS, CHECKOUTRECORD;
 	}
-	
 	public static final String OUTPUT_DIR = System.getProperty("user.dir")
 			+ "/src/application/dataaccess/storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
@@ -96,6 +95,11 @@ public class DataAccessUtil {
 	public static void createNewCheckoutRecord(List<CheckRecord> list,String memberId) {
 		HashMap<String, List<CheckRecord>> mems = readCheckOutRecordMap();
 		mems.put(memberId, list);
+		saveToStorage(StorageType.CHECKOUTRECORD, mems);	
+	}
+	public static void editCheckoutRecord(List<CheckRecord> list,String memberId) {
+		HashMap<String, List<CheckRecord>> mems = readCheckOutRecordMap();
+		mems.replace(memberId, list);
 		saveToStorage(StorageType.CHECKOUTRECORD, mems);	
 	}
 	

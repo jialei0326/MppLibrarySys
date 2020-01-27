@@ -3,20 +3,14 @@ package application.view.addbook;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.exception.LibrarySystemException;
 import application.pojo.Author;
 import application.pojo.Book;
-import application.pojo.FxController;
-import application.pojo.LibraryMember;
 import application.util.DataAccessUtil;
-import application.util.StageManageUtil;
-import application.view.login.MainMenuController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import application.util.LibraryUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -89,11 +83,7 @@ public class AddBookController implements Initializable{
 				alert.showAndWait();
 				
 				//refresh main window booklist
-				HashMap<String, Book> bookmapr = DataAccessUtil.readBooksMap();
-				List<Book> listr = new ArrayList<Book>(bookmapr.values());
-				ObservableList<Book> observableListr = FXCollections.observableList(listr);
-				MainMenuController s =(MainMenuController) StageManageUtil.CONTROLLER.get(FxController.MainMenuController);
-				s.refreshBookList(observableListr);
+				LibraryUtil.refreshMainWinBookList();
 				
 				
 			}else {
