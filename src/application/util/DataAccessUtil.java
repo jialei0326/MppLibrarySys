@@ -23,7 +23,7 @@ public class DataAccessUtil {
 		BOOKS, MEMBERS, USERS, CHECKOUTRECORD;
 	}
 	
-	public static final String OUTPUT_DIR = System.getProperty("user.dir") 
+	public static final String OUTPUT_DIR = System.getProperty("user.dir")
 			+ "/src/application/dataaccess/storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	

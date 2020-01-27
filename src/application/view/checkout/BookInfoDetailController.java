@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class BookInfoDetailController implements Initializable {
 	
@@ -62,7 +63,10 @@ public class BookInfoDetailController implements Initializable {
         dropshadow.setColor(Color.GRAY);
         treeRoot.setEffect(dropshadow);
 		
-		
+        close.setOnAction(event -> {
+        	Stage stage = (Stage)close.getScene().getWindow();
+        	stage.close();
+	    });
   			
 		
 	}
