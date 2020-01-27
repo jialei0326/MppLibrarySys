@@ -63,7 +63,7 @@
             <TextField fx:id="city" layoutX="212.0" layoutY="255.0" />
             <TextField fx:id="state" layoutX="212.0" layoutY="292.0" prefHeight="27.0" prefWidth="160.0" />
             <TextField fx:id="zip" layoutX="212.0" layoutY="331.0" prefHeight="27.0" prefWidth="160.0" />
-            <Label layoutX="32.0" layoutY="376.0" text="Shot Bio">
+            <Label layoutX="32.0" layoutY="376.0" text="Short Bio">
                <font>
                   <Font size="20.0" />
                </font>

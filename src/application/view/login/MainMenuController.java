@@ -124,6 +124,8 @@ public class MainMenuController implements Initializable{
 	@FXML
 	private Label avaliableColor;
 	@FXML
+	private Label hintmember;
+	@FXML
 	private Separator sepa1;
 	
 	public static Auth currentAuth = null;
@@ -166,6 +168,7 @@ public class MainMenuController implements Initializable{
 			avaliable.setVisible(true);
 			avaliableColor.setVisible(true);
 			sepa1.setVisible(true);
+			hintmember.setVisible(true);
 			if (currentAuth == Auth.LIBRARIAN) {
 				// disable ADMIN options
 				hide();
@@ -176,6 +179,7 @@ public class MainMenuController implements Initializable{
 				hide();
 				addL.setVisible(true);
 				addB.setVisible(true);
+				addC.setVisible(true);
 				editL.setVisible(true);
 				adm.setVisible(true);
 			}else if(currentAuth == Auth.BOTH) {
@@ -342,6 +346,10 @@ public class MainMenuController implements Initializable{
 		bookList.setItems(null);
 		bookList.setItems(observableList);
 	}
+	public void saveToStageManage(Stage stage) {
+		 StageManageUtil.STAGE.put(FxController.MainMenuStage, stage);
+         StageManageUtil.CONTROLLER.put(FxController.MainMenuController, this);
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -456,6 +464,7 @@ public class MainMenuController implements Initializable{
 
         });
 	    
+	    
 	    //memberList item double click action
 	    memberList.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	    	LibraryMember libmemberdou =null;
@@ -481,8 +490,7 @@ public class MainMenuController implements Initializable{
 		            Stage stage = new Stage();
 		            stage.setTitle("LibraryMember");
 		            //StageManager
-		            StageManageUtil.STAGE.put(FxController.MainMenuStage, stage);
-		            StageManageUtil.CONTROLLER.put(FxController.MainMenuController, this);
+		            saveToStageManage(stage);
 		            stage.setScene(scene);
 		            stage.show();  
 	            }
@@ -501,6 +509,7 @@ public class MainMenuController implements Initializable{
 			books.setVisible(false);
 			sepa1.setVisible(false);
 			logout.setVisible(false);
+			hintmember.setVisible(false);
 			headPic.setText("User");
 	    });
 		bk.setOnAction(event -> {
