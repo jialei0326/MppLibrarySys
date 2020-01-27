@@ -127,9 +127,13 @@ public class MainMenuController implements Initializable{
 	@FXML
 	private Label hintmember;
 	@FXML
+	private Label hintmemberLib;
+	@FXML
 	private Label hintBook;
 	@FXML
 	private Separator sepa1;
+	
+	private boolean turnFlag = false;
 	
 	public static Auth currentAuth = null;
 	
@@ -178,6 +182,8 @@ public class MainMenuController implements Initializable{
 				hide();
 				bk.setVisible(true);
 				lib.setVisible(true);
+				hintmemberLib.setVisible(true);
+				hintmember.setVisible(false);
 			} else if (currentAuth == Auth.ADMIN) {
 				// disable LIBRARIAN options
 				hide();
@@ -255,7 +261,11 @@ public class MainMenuController implements Initializable{
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         AddMemberController control = fxmlLoader.getController();
-        control.fileText(libmember);
+        turnFlag = false;
+        if(currentAuth == Auth.LIBRARIAN) {
+        	turnFlag = true;
+        }
+        control.fileText(libmember,turnFlag);
         Stage stage = new Stage();
         stage.setTitle("LibraryMember");
         //StageManager
@@ -490,7 +500,11 @@ public class MainMenuController implements Initializable{
 					}
 		            Scene scene = new Scene(root);
 		            AddMemberController control = fxmlLoader.getController();
-		            control.fileText(libmemberdou);
+		            turnFlag = false;
+		            if(currentAuth == Auth.LIBRARIAN) {
+		            	turnFlag = true;
+		            }
+		            control.fileText(libmemberdou,turnFlag);
 		            Stage stage = new Stage();
 		            stage.setTitle("LibraryMember");
 		            //StageManager
@@ -548,6 +562,7 @@ public class MainMenuController implements Initializable{
 			logout.setVisible(false);
 			hintmember.setVisible(false);
 			hintBook.setVisible(false);
+			hintmemberLib.setVisible(false);
 			headPic.setText("User");
 	    });
 		bk.setOnAction(event -> {

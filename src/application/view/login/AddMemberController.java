@@ -142,7 +142,7 @@ public class AddMemberController implements Initializable{
         stage1.setScene(scene);
         stage1.show(); 
 	}
-	public void fileText(LibraryMember libmem) {
+	public void fileText(LibraryMember libmem,boolean turnFlag) {
 		id.setText(libmem.getMemberId());
 		fn.setText(libmem.getFirstName());
 		ln.setText(libmem.getLastName());
@@ -151,6 +151,11 @@ public class AddMemberController implements Initializable{
 		ste.setText(libmem.getAddress().getState());
 		zp.setText(libmem.getAddress().getZip());
 		ph.setText(libmem.getTelephone());
+		if(turnFlag) {
+			saveBtn.setVisible(false);
+		}else {
+			saveBtn.setVisible(true);
+		}
 		saveBtn.setText("Edit");
 		
 	}
@@ -159,6 +164,7 @@ public class AddMemberController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		headLabel.setGraphic(new ImageView(new Image("/application/icon/add_member.png")));
 		saveBtn.setGraphic(new ImageView(new Image("/application/icon/add.png")));
+		saveBtn.setVisible(true);
 		
 		// force the field to be numeric only
 		LibraryUtil.numberTextfield(zp);
