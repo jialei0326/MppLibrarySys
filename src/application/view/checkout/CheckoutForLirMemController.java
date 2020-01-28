@@ -273,7 +273,8 @@ public class CheckoutForLirMemController implements Initializable {
 	        		textarea += "Record "+(i+1)+":\n{\n";
 	        		textarea += "\tCheckout Book[ ISBN:" + listr.get(i).getBookcopy().getBook().getIsbn()+", Title:"+listr.get(i).getBookcopy().getBook().getTitle()+" ]\n"+
 	        				"\tBookCopy[ copy number:"+listr.get(i).getBookcopy().getCopyNum()+" ]\n"+
-	        				"\tCheckouDate[ "+listr.get(i).getCheckoutDate()+" ], DueDate[ "+ listr.get(i).getDueDate()+" ]\n}\n";
+	        				"\tCheckouDate[ "+listr.get(i).getCheckoutDate()+" ], DueDate[ "+ listr.get(i).getDueDate()+" ]\n"+
+	        				"\tIsOverDue[ "+(listr.get(i).getDueDate().compareTo(LocalDateTime.now()) > 0?"No!":"Yes!")+ " ]\n}\n";
 	        	}
 	        }else {
 	        	LibraryUtil.alertNoCheckoutRecord();
